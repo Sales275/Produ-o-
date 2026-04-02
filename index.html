@@ -77,3 +77,88 @@ footer{text-align:center;padding:16px;font-size:.65rem;color:var(--muted);border
 @media(max-width:1100px){.kpi-row{grid-template-columns:repeat(3,1fr)}.charts{grid-template-columns:1fr}}
 @media(max-width:600px){main{padding:14px}header{padding:12px 14px}.kpi-row{grid-template-columns:repeat(2,1fr)}}
 </style></head><body>
+  <header>
+<div class="logo"><div class="dot"></div>Dashboard de Produção</div>
+<div style="display:flex;align-items:center;gap:12px;">
+<select onchange="trocar(this.value)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:8px;font-size:.78rem;font-weight:600;font-family:'Figtree',sans-serif;">
+<option value="0">16-20 Mar</option>
+<option value="1">23-27 Mar</option>
+</select>
+<div class="wpill" id="wpill">Semana 16-20 Mar</div></div></header>
+<main>
+<div class="kpi-row" id="kpis"></div>
+<div class="charts">
+<div class="card"><div class="ct">% Atingido por Produto</div><div class="blist" id="bars"></div></div>
+<div class="card"><div class="ct">Desempenho por Curva</div><div class="clist" id="curvas"></div></div>
+</div>
+<div class="tcard">
+<div class="thead"><div class="ttl">Detalhamento Semanal</div>
+<div class="filters">
+<button class="fb on" onclick="filt('all',this)">Todos</button>
+<button class="fb" onclick="filt('A',this)">Curva A</button>
+<button class="fb" onclick="filt('B',this)">Curva B</button>
+<button class="fb" onclick="filt('C',this)">Curva C</button>
+<button class="fb" onclick="filt('crit',this)">⚠ Críticos</button>
+</div></div>
+<div class="tw"><table>
+<thead><tr><th>Produto</th><th>Curva</th><th>Meta Mensal</th><th>Meta Ant.</th><th>Meta Atual</th><th>Meta Sobrev.</th><th>Meta Semana</th><th>Meta Cresc.5%</th><th>Total Feito</th><th>% Atingido</th><th>Falta</th><th>% Falta</th></tr></thead>
+<tbody id="tb"></tbody><tfoot id="tf"></tfoot>
+</table></div></div>
+<div class="card" style="margin-bottom:20px;">
+<div class="ct">Comparativo Mensal por Produto</div>
+<div class="cgrid" id="comp"></div></div>
+</main>
+<footer>Dashboard de Produção · <span
+                                  <script>
+document.getElementById('upd').textContent=new Date().toLocaleString('pt-BR');
+const S=[
+{l:'16-20 Mar',d:[
+{p:"A4 PS C/ FILETE",c:"A",mm:32000,ma:1600,mat:1600,ms:8000,msem:6400,tf:8230},
+{p:"A6 T VERTICAL",c:"A",mm:32400,ma:1600,mat:1620,ms:8000,msem:6480,tf:5370},
+{p:"A5 T VERTICAL",c:"A",mm:14700,ma:300,mat:735,ms:1500,msem:2940,tf:1600},
+{p:"A6 L VERTICAL",c:"A",mm:48000,ma:1600,mat:2400,ms:11000,msem:11272,tf:3454},
+{p:"A4 DOBRADO",c:"A",mm:27200,ma:675,mat:1360,ms:3375,msem:5440,tf:5555},
+{p:"A3 DOBRADO",c:"A",mm:4600,ma:100,mat:230,ms:500,msem:920,tf:500},
+{p:"URNA P30 CM",c:"A",mm:1280,ma:21,mat:80,ms:105,msem:256,tf:207},
+{p:"PFA4 V PETG",c:"B",mm:1400,ma:50,mat:70,ms:250,msem:280,tf:280},
+{p:"URNA Q 15 CM",c:"B",mm:540,ma:15,mat:27,ms:75,msem:108,tf:108},
+{p:"URNA Q 20 CM",c:"C",mm:300,ma:15,mat:15,ms:75,msem:60,tf:72},
+{p:"BOLO 15 CM",c:"B",mm:260,ma:10,mat:13,ms:50,msem:52,tf:61},
+{p:"BOLO 20 CM",c:"B",mm:320,ma:20,mat:16,ms:100,msem:64,tf:70},
+{p:"LEDs",c:"B",mm:360,ma:15,mat:18,ms:75,msem:72,tf:74},
+{p:"URNA P 20 CM",c:"C",mm:240,ma:15,mat:12,ms:75,msem:48,tf:111},
+{p:"BOLO 25 CM",c:"B",mm:120,ma:30,mat:6,ms:150,msem:24,tf:27}]},
+{l:'23-27 Mar',d:[
+{p:"A4 PS C/ FILETE",c:"A",mm:32000,ma:1600,mat:1600,ms:8000,msem:6400,tf:8270},
+{p:"A6 T VERTICAL",c:"A",mm:32400,ma:1600,mat:1620,ms:8000,msem:6480,tf:6495},
+{p:"A5 T VERTICAL",c:"A",mm:14700,ma:300,mat:735,ms:1500,msem:2940,tf:3130},
+{p:"A6 L VERTICAL",c:"A",mm:48000,ma:1600,mat:2400,ms:8000,msem:9600,tf:9600},
+{p:"A4 DOBRADO",c:"A",mm:27200,ma:675,mat:1360,ms:3375,msem:5440,tf:5890},
+{p:"A3 DOBRADO",c:"A",mm:4600,ma:100,mat:230,ms:500,msem:920,tf:920},
+{p:"URNA P30 CM",c:"A",mm:1280,ma:21,mat:80,ms:105,msem:256,tf:268},
+{p:"PFA4 V PETG",c:"B",mm:1400,ma:50,mat:70,ms:250,msem:280,tf:841},
+{p:"URNA Q 15 CM",c:"B",mm:540,ma:15,mat:27,ms:75,msem:108,tf:69},
+{p:"URNA Q 20 CM",c:"C",mm:300,ma:15,mat:15,ms:75,msem:60,tf:60},
+{p:"BOLO 15 CM",c:"B",mm:260,ma:10,mat:13,ms:50,msem:52,tf:70},
+{p:"BOLO 20 CM",c:"B",mm:320,ma:20,mat:16,ms:100,msem:64,tf:87},
+{p:"LEDs",c:"B",mm:360,ma:15,mat:18,ms:75,msem:72,tf:100},
+{p:"URNA P 20 CM",c:"C",mm:240,ma:15,mat:12,ms:75,msem:48,tf:0},
+{p:"BOLO 25 CM",c:"B",mm:120,ma:30,mat:6,ms:150,msem:24,tf:30}]}
+];
+const fmt=n=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:2});
+const fmtP=n=>(n>=0?'+':'')+n.toFixed(2)+'%';
+const clr=v=>v>=100?'#3fb950':v>=70?'#d29922':'#f85149';
+const clrC=v=>v>=100?'cg':v>=70?'cy':'cr';
+function calc(r){const pct=r.msem>0?r.tf/r.msem*100:0;return{...r,pct,falt:Math.max(0,r.msem-r.tf),pflt:r.msem>0?(r.tf-r.msem)/r.msem*100:0,mcr:r.msem*1.05};}
+let si=0,fi='all';
+function rows(){return S[si].d.map(calc);}
+function trocar(v){si=parseInt(v);document.getElementById('wpill').textContent='Semana '+S[si].l;renderAll();}
+function renderKPIs(r){const tf=r.reduce((s,x)=>s+x.tf,0),ts=r.reduce((s,x)=>s+x.msem,0),pct=ts>0?tf/ts*100:0,fl=r.reduce((s,x)=>s+x.falt,0),ac=r.filter(x=>x.pct>=100).length,cr=r.filter(x=>x.pct<60).length;document.getElementById('kpis').innerHTML=[{cls:'bl',l:'Total Produzido',v:fmt(tf),s:'unidades na semana'},{cls:pct>=100?'gr':pct>=70?'am':'rd',l:'% Atingido',v:pct.toFixed(1)+'%',s:'vs meta da semana'},{cls:'bl',l:'Meta da Semana',v:fmt(ts),s:'meta oficial'},{cls:fl===0?'gr':'rd',l:'Falta Produzir',v:fmt(fl),s:(ts>0?(fl/ts*100).toFixed(1):0)+'% abaixo'},{cls:'pu',l:'Acima da Meta',v:ac+'/'+r.length,s:'produtos ≥ 100%'},{cls:cr===0?'gr':'rd',l:'Críticos <60%',v:cr,s:'requerem atenção'}].map(k=>`<div class="kpi ${k.cls}"><div class="kpi-l">${k.l}</div><div class="kpi-v">${k.v}</div><div class="kpi-s">${k.s}</div></div>`).join('');}
+function renderBars(r){document.getElementById('bars').innerHTML=[...r].sort((a,b)=>b.pct-a.pct).map(x=>`<div class="bitem"><div class="bn" title="${x.p}">${x.p}</div><div class="bt"><div class="bf" style="width:${Math.min(x.pct/2,100)}%;background:${clr(x.pct)}"></div></div><div class="bp" style="color:${clr(x.pct)}">${x.pct.toFixed(0)}%</div></div>`).join('');}
+function renderCurvas(r){const cv={A:{tf:0,ms:0,color:'#79b8ff'},B:{tf:0,ms:0,color:'#bc8cff'},C:{tf:0,ms:0,color:'#ff7b72'}};r.forEach(x=>{if(cv[x.c]){cv[x.c].tf+=x.tf;cv[x.c].ms+=x.msem;}});document.getElementById('curvas').innerHTML=Object.entries(cv).map(([k,v])=>{const pct=v.ms>0?v.tf/v.ms*100:0;return`<div class="citem"><div class="cring" style="background:conic-gradient(${v.color} ${pct*3.6}deg,rgba(255,255,255,.06) ${pct*3.6}deg)"><span style="color:${v.color}">${pct.toFixed(0)}%</span></div><div class="cinfo"><div class="clbl" style="color:${v.color}">Curva ${k}</div><div class="csub">${fmt(v.tf)} / ${fmt(v.ms)} un.</div></div><div class="cpct" style="color:${clr(pct)}">${pct.toFixed(1)}%</div></div>`;}).join('');}
+function renderTabela(r){const vis=r.filter(x=>fi==='all'?true:fi==='crit'?x.pct<60:x.c===fi);document.getElementById('tb').innerHTML=vis.map(x=>`<tr><td>${x.p}</td><td><span class="chip c${x.c.toLowerCase()}">${x.c}</span></td><td>${fmt(x.mm)}</td><td>${fmt(x.ma)}</td><td>${fmt(x.mat)}</td><td>${fmt(x.ms)}</td><td>${fmt(x.msem)}</td><td>${fmt(x.mcr)}</td><td>${fmt(x.tf)}</td><td><div class="pc"><div class="mb"><div class="mf" style="width:${Math.min(x.pct/2,100)}%;background:${clr(x.pct)}"></div></div><span class="${clrC(x.pct)}">${x.pct.toFixed(2)}%</span></div></td><td class="${x.falt===0?'cg':'cr'}">${fmt(x.falt)}</td><td class="${x.pflt>=0?'cg':'cr'}">${fmtP(x.pflt)}</td></tr>`).join('');const tf=r.reduce((s,x)=>s+x.tf,0),ts=r.reduce((s,x)=>s+x.msem,0),fl=r.reduce((s,x)=>s+x.falt,0),pct=ts>0?tf/ts*100:0,pflt=ts>0?(tf-ts)/ts*100:0;document.getElementById('tf').innerHTML=`<tr><td>TOTAL GERAL</td><td></td><td>${fmt(r.reduce((s,x)=>s+x.mm,0))}</td><td>${fmt(r.reduce((s,x)=>s+x.ma,0))}</td><td>${fmt(r.reduce((s,x)=>s+x.mat,0))}</td><td>${fmt(r.reduce((s,x)=>s+x.ms,0))}</td><td>${fmt(ts)}</td><td>${fmt(r.reduce((s,x)=>s+x.mcr,0))}</td><td>${fmt(tf)}</td><td style="color:${clr(pct)}">${pct.toFixed(2)}%</td><td style="color:${fl===0?'#3fb950':'#f85149'}">${fmt(fl)}</td><td style="color:${pflt>=0?'#3fb950':'#f85149'}">${fmtP(pflt)}</td></tr>`;}
+function renderComp(){const ps=[...new Set(S.flatMap(s=>s.d.map(r=>r.p)))];const cs=['#2f81f7','#3fb950','#d29922','#bc8cff'];document.getElementById('comp').innerHTML=ps.map(p=>`<div class="ci"><div class="cp">${p}</div>${S.map((s,i)=>{const r=s.d.find(d=>d.p===p);if(!r)return'';const rc=calc(r);return`<div class="cr2"><div class="cwk">${s.l}</div><div class="ctr"><div class="cfi" style="width:${Math.min(rc.pct/2,100)}%;background:${cs[i%cs.length]}"></div></div><div class="cpn" style="color:${clr(rc.pct)}">${rc.pct.toFixed(0)}%</div></div>`;}).join('')}</div>`).join('');}
+function filt(f,btn){fi=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderTabela(rows());}
+function renderAll(){const r=rows();renderKPIs(r);renderBars(r);renderCurvas(r);renderTabela(r);renderComp();}
+renderAll();
+</script></body></html>

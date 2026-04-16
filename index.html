@@ -196,6 +196,3 @@ const cs=['#2f81f7','#3fb950','#d29922'];
 document.getElementById('compMes').innerHTML=PRODS.map(p=>{const i=PRODS.indexOf(p);return'<div class="ci"><div class="cp">'+p+'</div>'+MESES.map((m,mi)=>{const tf=m.semanas.reduce((s,j)=>s+SEMANAS[j].tf[i],0);const ms=m.semanas.reduce((s,j)=>s+SEMANAS[j].msem[i],0);const pct=ms>0?tf/ms*100:0;return'<div class="cr2"><div class="cwk">'+m.nome.split(' ')[0]+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(pct/2,100)+'%;background:'+cs[mi%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div>';}).join('')+'</div>';}).join('');}
 function selecionarMes(idx){document.querySelectorAll('.mcard').forEach((c,i)=>c.classList.toggle('ativo',i===idx));}
 renderSemanal();
-</script>
-</body>
-</html>

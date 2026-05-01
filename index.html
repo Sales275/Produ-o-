@@ -117,20 +117,24 @@ footer{text-align:center;padding:16px;font-size:.63rem;color:var(--muted);border
 <button class="tab-btn" onclick="mudarView('mensal',this)">Mensal</button>
 </div>
 <select class="wsel" id="semSel" onchange="trocar(this.value)">
-<option value="0">02-08 Fev</option>
-<option value="1">09-15 Fev</option>
-<option value="2">16-20 Fev</option>
-<option value="3">23-28 Fev</option>
-<option value="4">02-08 Mar</option>
-<option value="5">09-15 Mar</option>
-<option value="6">16-20 Mar</option>
-<option value="7">23-27 Mar</option>
-<option value="8">30Mar-03Abr</option>
-<option value="9">06-10 Abr</option>
-<option value="10">13-17 Abr</option>
-<option value="11">20-24 Abr</option>
+<option value="0">05-10 Jan</option>
+<option value="1">12-16 Jan</option>
+<option value="2">19-23 Jan</option>
+<option value="3">26-31 Jan</option>
+<option value="4">02-08 Fev</option>
+<option value="5">09-15 Fev</option>
+<option value="6">16-20 Fev</option>
+<option value="7">23-28 Fev</option>
+<option value="8">02-08 Mar</option>
+<option value="9">09-15 Mar</option>
+<option value="10">16-20 Mar</option>
+<option value="11">23-27 Mar</option>
+<option value="12">30Mar-03Abr</option>
+<option value="13">06-10 Abr</option>
+<option value="14">13-17 Abr</option>
+<option value="15">20-24 Abr</option>
 </select>
-<div class="wbadge" id="wbadge">Semana 02-08 Fev</div>
+<div class="wbadge" id="wbadge">Semana 05-10 Jan</div>
 </div>
 </header>
 <main>
@@ -169,11 +173,16 @@ const PRODS=["A4 PS C/ FILETE","A6 T VERTICAL","A5 T VERTICAL","A6 L VERTICAL","
 const CURVAS=["A","A","A","A","A","A","A","B","B","C","B","B","B","C","B"];
 const MSOB=[8000,8000,1500,11000,3375,500,105,250,75,75,50,100,75,75,150];
 const METAS={
+jan:{mm:[32000,32400,14700,48000,27200,4600,1280,1400,540,300,260,320,360,240,120],msem:[10500,8500,2000,8500,4500,650,250,300,100,1000,100,150,100,100,250],mdia:[2100,1700,400,1700,900,130,50,60,20,200,20,30,20,20,50]},
 fev:{mm:[32000,32400,14700,48000,27200,4600,1280,1400,540,300,260,320,360,240,120],msem:[6720,6804,3087,10080,5712,966,268,294,113,63,64,54,67,50,25],mdia:[1344,1361,617,2016,1142,193,54,59,23,13,13,11,13,10,5]},
 mar:{mm:[32000,32400,14700,48000,27200,4600,1280,1400,540,300,260,320,360,240,120],msem:[6400,6480,2940,9600,5440,920,256,280,108,60,52,64,72,48,24],mdia:[1280,1296,588,1920,1088,184,51,56,22,12,10,13,14,10,5]},
 abr:{mm:[34000,26000,7600,30000,34000,3700,2250,4000,540,550,630,390,140,330,100],msem:[6800,5200,1520,6000,6800,740,450,800,108,110,126,78,28,66,20],mdia:[1700,1300,380,1700,1500,185,113,200,27,28,32,20,7,17,5]}
 };
 const SEMANAS=[
+{l:'05-10 Jan',m:'jan',tf:[5079,6400,1790,8590,4659,720,252,300,0,84,0,108,24,0,65]},
+{l:'12-16 Jan',m:'jan',tf:[3928,1300,2970,5751,4504,730,371,104,28,42,51,65,65,61,5]},
+{l:'19-23 Jan',m:'jan',tf:[3378,0,970,2475,5792,710,203,92,100,62,45,45,94,94,0]},
+{l:'26-31 Jan',m:'jan',tf:[2255,4600,400,6160,8110,410,250,293,106,135,64,129,157,101,20]},
 {l:'02-08 Fev',m:'fev',tf:[5925,1850,3690,3661,12660,920,162,120,104,201,13,13,29,61,13]},
 {l:'09-15 Fev',m:'fev',tf:[6240,3100,1970,5970,10855,822,252,324,32,184,85,85,66,177,70]},
 {l:'16-20 Fev',m:'fev',tf:[1568,0,0,1220,1521,970,98,630,117,176,16,27,24,43,15]},
@@ -188,18 +197,19 @@ const SEMANAS=[
 {l:'20-24 Abr',m:'abr',tf:[2871,2750,380,3050,3450,0,372,150,106,67,40,45,35,104,15]}
 ];
 const MESES={
-fev:{nome:'Fevereiro 2026',semanas:[0,1,2,3]},
-mar:{nome:'Marco 2026',semanas:[4,5,6,7,8]},
-abr:{nome:'Abril 2026',semanas:[9,10,11]}
+jan:{nome:'Janeiro 2026',semanas:[0,1,2,3]},
+fev:{nome:'Fevereiro 2026',semanas:[4,5,6,7]},
+mar:{nome:'Marco 2026',semanas:[8,9,10,11,12]},
+abr:{nome:'Abril 2026',semanas:[13,14,15]}
 };
 const fmt=n=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:2});
 const fmtP=n=>(n>=0?'+':'')+n.toFixed(2)+'%';
 const clr=v=>v>=100?'#3fb950':v>=70?'#d29922':'#f85149';
 const clrC=v=>v>=100?'cg':v>=70?'cy':'cr';
-let si=0,fi='all',chartMes=null,mesAtual='fev';
+let si=0,fi='all',chartMes=null,mesAtual='jan';
 function getMetas(idx){return METAS[SEMANAS[idx].m];}
 function makeRows(idx){
-const mt=getMetas(idx);
+const mt=METAS[SEMANAS[idx].m];
 return PRODS.map((p,i)=>{
 const msem=mt.msem[i],tf=SEMANAS[idx].tf[i],pct=msem>0?tf/msem*100:0;
 return{p,c:CURVAS[i],mm:mt.mm[i],mdia:mt.mdia[i],msem,ms:MSOB[i],tf,pct,falt:Math.max(0,msem-tf),pflt:msem>0?(tf-msem)/msem*100:0,mcr:msem*1.05};
@@ -221,7 +231,7 @@ document.getElementById('tb').innerHTML=vis.map(x=>'<tr><td>'+x.p+'</td><td><spa
 const tf=r.reduce((s,x)=>s+x.tf,0),ts=r.reduce((s,x)=>s+x.msem,0),fl=r.reduce((s,x)=>s+x.falt,0),pct=ts>0?tf/ts*100:0,pflt=ts>0?(tf-ts)/ts*100:0;
 document.getElementById('tf').innerHTML='<tr><td>TOTAL GERAL</td><td></td><td>'+fmt(r.reduce((s,x)=>s+x.mm,0))+'</td><td>'+fmt(r.reduce((s,x)=>s+x.mdia,0))+'</td><td>'+fmt(ts)+'</td><td>'+fmt(r.reduce((s,x)=>s+x.ms,0))+'</td><td>'+fmt(r.reduce((s,x)=>s+x.mcr,0))+'</td><td>'+fmt(tf)+'</td><td style="color:'+clr(pct)+'">'+pct.toFixed(2)+'%</td><td style="color:'+(fl===0?'#3fb950':'#f85149')+'">'+fmt(fl)+'</td><td style="color:'+(pflt>=0?'#3fb950':'#f85149')+'">'+fmtP(pflt)+'</td></tr>';}
 function renderComp(){
-const cs=['#2f81f7','#3fb950','#d29922','#bc8cff','#ff7b72','#38bdf8','#f472b6','#fb923c','#a3e635','#e879f9','#67e8f9','#fbbf24'];
+const cs=['#2f81f7','#3fb950','#d29922','#bc8cff','#ff7b72','#38bdf8','#f472b6','#fb923c','#a3e635','#e879f9','#67e8f9','#fbbf24','#c084fc','#f87171','#34d399','#60a5fa'];
 document.getElementById('comp').innerHTML=PRODS.map(p=>{const i=PRODS.indexOf(p);return'<div class="ci"><div class="cp">'+p+'</div>'+SEMANAS.map((s,j)=>{const tf=s.tf[i],ms=METAS[s.m].msem[i],pct=ms>0?tf/ms*100:0;return'<div class="cr2"><div class="cwk">'+s.l+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(pct/2,100)+'%;background:'+cs[j%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div>';}).join('')+'</div>';}).join('');}
 function filt(f,btn){fi=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderTabela(makeRows(si));}
 function renderMensal(){
@@ -240,7 +250,7 @@ chartMes=new Chart(ctx,{type:'bar',data:{labels:allMeses.map(m=>m.nome),datasets
 {label:'Total Produzido',data:allMeses.map(m=>m.semanas.reduce((s,j)=>s+SEMANAS[j].tf.reduce((a,b)=>a+b,0),0)),backgroundColor:grad,borderColor:'#2f81f7',borderWidth:2,borderRadius:8},
 {label:'Meta',data:allMeses.map(m=>m.semanas.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem.reduce((a,b)=>a+b,0),0)),type:'line',borderColor:'rgba(63,185,80,.7)',borderWidth:2,borderDash:[8,4],pointRadius:5,pointBackgroundColor:'#3fb950',fill:false,tension:.3}
 ]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#7d8590',font:{family:'Figtree',size:11},boxWidth:12}}},scales:{y:{ticks:{color:'#7d8590',font:{family:'JetBrains Mono',size:10},callback:function(v){return fmt(v);}},grid:{color:'rgba(48,54,61,.5)'}},x:{ticks:{color:'#7d8590',font:{family:'Figtree',size:11}},grid:{display:false}}}}});
-const cs=['#2f81f7','#3fb950','#d29922'];
+const cs=['#2f81f7','#3fb950','#d29922','#bc8cff'];
 document.getElementById('compMes').innerHTML=PRODS.map(p=>{const i=PRODS.indexOf(p);return'<div class="ci"><div class="cp">'+p+'</div>'+mKeys.map((k,mi)=>{const m=MESES[k];const tf=m.semanas.reduce((s,j)=>s+SEMANAS[j].tf[i],0);const ms=m.semanas.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem[i],0);const pct=ms>0?tf/ms*100:0;return'<div class="cr2"><div class="cwk">'+m.nome.split(' ')[0]+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(pct/2,100)+'%;background:'+cs[mi%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div>';}).join('')+'</div>';}).join('');}
 function selecionarMes(k,btn){mesAtual=k;document.querySelectorAll('.mes-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderMensal();}
 renderSemanal();

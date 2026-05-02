@@ -20,7 +20,7 @@ header{background:var(--card);border-bottom:1px solid var(--border);padding:0 28
 .ldot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .tab-group{display:flex;background:var(--card2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-.tab-btn{padding:6px 16px;font-size:.73rem;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'Figtree',sans-serif;transition:.2s;}
+.tab-btn{padding:6px 12px;font-size:.68rem;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'Figtree',sans-serif;transition:.2s;}
 .tab-btn.on{background:var(--accent);color:#fff;}
 .wsel{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:8px;font-size:.75rem;font-weight:600;cursor:pointer;font-family:'Figtree',sans-serif;outline:none;}
 .wbadge{background:var(--accent);color:#fff;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:700;}
@@ -39,7 +39,7 @@ main{padding:20px 28px;max-width:1600px;margin:0 auto;}
 .ct{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .ct::before{content:'';width:3px;height:12px;border-radius:2px;background:var(--accent);}
 .charts{display:grid;grid-template-columns:1fr 300px;gap:16px;margin-bottom:20px;}
-canvas{max-height:220px;}
+canvas{max-height:240px;}
 .clist{display:flex;flex-direction:column;gap:12px;}
 .citem{display:flex;align-items:center;gap:11px;}
 .cring{width:50px;height:50px;border-radius:50%;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;}
@@ -99,8 +99,34 @@ tfoot td:nth-child(2){text-align:center;}
 .mes-sel{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
 .mes-btn{padding:6px 16px;border-radius:8px;font-size:.72rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:.15s;font-family:'Figtree',sans-serif;}
 .mes-btn.on,.mes-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+.anual-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px;}
+.anual-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;position:relative;overflow:hidden;}
+.anual-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
+.anual-card.fut{opacity:.4;}
+.anual-mes{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:5px;}
+.anual-val{font-size:1.1rem;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--accent);margin-bottom:3px;}
+.anual-pct{font-size:.68rem;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.anual-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;margin-top:8px;overflow:hidden;}
+.anual-bar-f{height:100%;border-radius:2px;background:var(--accent);}
+.acum-badge{font-size:.58rem;color:var(--muted);margin-top:4px;}
+.rank-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+.rank-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--card2);border-radius:8px;border:1px solid var(--border);margin-bottom:8px;}
+.rank-pos{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex-shrink:0;}
+.rank-info{flex:1;}
+.rank-nome{font-size:.72rem;font-weight:700;margin-bottom:2px;}
+.rank-val{font-size:.65rem;color:var(--muted);}
+.rank-pct{font-size:.75rem;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.tend-up{color:var(--green)}.tend-dn{color:var(--red)}.tend-eq{color:var(--amber)}
+.insight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:20px;}
+.insight{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;}
+.insight::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.insight.good::before{background:var(--green)}.insight.warn::before{background:var(--amber)}.insight.bad::before{background:var(--red)}.insight.info::before{background:var(--accent)}
+.insight-icon{font-size:1.5rem;margin-bottom:8px;}
+.insight-title{font-size:.75rem;font-weight:700;margin-bottom:6px;}
+.insight-text{font-size:.68rem;color:var(--muted);line-height:1.5;}
+.insight-val{font-size:1rem;font-weight:800;font-family:'JetBrains Mono',monospace;margin-top:6px;}
 footer{text-align:center;padding:16px;font-size:.63rem;color:var(--muted);border-top:1px solid var(--border);}
-@media(max-width:1100px){.kpi-row{grid-template-columns:repeat(3,1fr)}.charts{grid-template-columns:1fr}}
+@media(max-width:1100px){.kpi-row{grid-template-columns:repeat(3,1fr)}.charts{grid-template-columns:1fr}.rank-grid{grid-template-columns:1fr}}
 @media(max-width:600px){main{padding:14px}header{padding:0 14px}.kpi-row{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
@@ -115,6 +141,9 @@ footer{text-align:center;padding:16px;font-size:.63rem;color:var(--muted);border
 <div class="tab-group">
 <button class="tab-btn on" onclick="mudarView('semanal',this)">Semanal</button>
 <button class="tab-btn" onclick="mudarView('mensal',this)">Mensal</button>
+<button class="tab-btn" onclick="mudarView('trimestral',this)">Trimestral</button>
+<button class="tab-btn" onclick="mudarView('anual',this)">Anual</button>
+<button class="tab-btn" onclick="mudarView('analise',this)">Analise</button>
 </div>
 <select class="wsel" id="semSel" onchange="trocar(this.value)">
 <option value="0">05-10 Jan</option>
@@ -165,6 +194,37 @@ footer{text-align:center;padding:16px;font-size:.63rem;color:var(--muted);border
 <div class="card"><div class="ct">Evolucao Mensal</div><canvas id="chartMes"></canvas></div>
 <div class="card"><div class="ct">Comparativo Mensal por Produto</div><div class="cgrid" id="compMes"></div></div>
 </div>
+<div class="view" id="view-trimestral">
+<div class="kpi-row" id="kpiTri"></div>
+<div class="card"><div class="ct">Producao por Mes</div><canvas id="chartTri"></canvas></div>
+<div class="tcard">
+<div class="ttop"><div class="ttl">Ranking por Produto — Acumulado</div></div>
+<div class="tw"><table>
+<thead><tr><th>Produto</th><th>Curva</th><th>Janeiro</th><th>Fevereiro</th><th>Marco</th><th>Abril</th><th>Total</th><th>Meta</th><th>%</th></tr></thead>
+<tbody id="tbTri"></tbody><tfoot id="tfTri"></tfoot>
+</table></div></div>
+</div>
+<div class="view" id="view-anual">
+<div class="kpi-row" id="kpiAnual"></div>
+<div class="anual-grid" id="anualGrid"></div>
+<div class="card"><div class="ct">Acumulado Anual</div><canvas id="chartAnual"></canvas></div>
+<div class="card"><div class="ct">Total por Produto — 2026</div><div class="cgrid" id="compAnual"></div></div>
+</div>
+<div class="view" id="view-analise">
+<div class="kpi-row" id="kpiAna"></div>
+<div class="insight-grid" id="insights"></div>
+<div class="rank-grid">
+<div class="card"><div class="ct">🏆 Top 5 — Mais Produzidos</div><div id="top5"></div></div>
+<div class="card"><div class="ct">⚠️ Bottom 5 — Menor Performance</div><div id="bot5"></div></div>
+</div>
+<div class="card"><div class="ct">Tendencia por Mes — % Atingido</div><canvas id="chartAna"></canvas></div>
+<div class="tcard">
+<div class="ttop"><div class="ttl">Analise Completa por Produto</div></div>
+<div class="tw"><table>
+<thead><tr><th>Produto</th><th>Curva</th><th>Total Produzido</th><th>% Medio</th><th>Melhor Mes</th><th>Pior Mes</th><th>Tendencia</th><th>Status</th></tr></thead>
+<tbody id="tbAna"></tbody>
+</table></div></div>
+</div>
 </main>
 <footer>Acrilzano · Dashboard de Producao · Atualizado em <span id="upd"></span></footer>
 <script>
@@ -197,25 +257,26 @@ const SEMANAS=[
 {l:'20-24 Abr',m:'abr',tf:[2871,2750,380,3050,3450,0,372,150,106,67,40,45,35,104,15]}
 ];
 const MESES={
-jan:{nome:'Janeiro 2026',semanas:[0,1,2,3]},
-fev:{nome:'Fevereiro 2026',semanas:[4,5,6,7]},
-mar:{nome:'Marco 2026',semanas:[8,9,10,11,12]},
-abr:{nome:'Abril 2026',semanas:[13,14,15]}
+jan:{nome:'Janeiro',semanas:[0,1,2,3]},
+fev:{nome:'Fevereiro',semanas:[4,5,6,7]},
+mar:{nome:'Marco',semanas:[8,9,10,11,12]},
+abr:{nome:'Abril',semanas:[13,14,15]}
 };
+const TODOS_MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const NOMES_MESES=['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const fmt=n=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:2});
 const fmtP=n=>(n>=0?'+':'')+n.toFixed(2)+'%';
 const clr=v=>v>=100?'#3fb950':v>=70?'#d29922':'#f85149';
 const clrC=v=>v>=100?'cg':v>=70?'cy':'cr';
-let si=0,fi='all',chartMes=null,mesAtual='jan';
-function getMetas(idx){return METAS[SEMANAS[idx].m];}
-function makeRows(idx){
-const mt=METAS[SEMANAS[idx].m];
-return PRODS.map((p,i)=>{
-const msem=mt.msem[i],tf=SEMANAS[idx].tf[i],pct=msem>0?tf/msem*100:0;
-return{p,c:CURVAS[i],mm:mt.mm[i],mdia:mt.mdia[i],msem,ms:MSOB[i],tf,pct,falt:Math.max(0,msem-tf),pflt:msem>0?(tf-msem)/msem*100:0,mcr:msem*1.05};
-});}
-function mudarView(v,btn){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));document.getElementById('view-'+v).classList.add('on');document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.getElementById('semSel').style.display=v==='semanal'?'block':'none';document.getElementById('wbadge').style.display=v==='semanal'?'block':'none';if(v==='mensal')renderMensal();}
+let si=0,fi='all',chartMes=null,chartTri=null,chartAnual=null,chartAna=null,mesAtual='jan';
+
+function getMesTotais(mk){if(!MESES[mk])return{tf:0,ms:0};const sems=MESES[mk].semanas;const tf=sems.reduce((s,j)=>s+SEMANAS[j].tf.reduce((a,b)=>a+b,0),0);const ms=sems.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem.reduce((a,b)=>a+b,0),0);return{tf,ms};}
+function getMesProduto(mk,pi){if(!MESES[mk])return{tf:0,ms:0};const sems=MESES[mk].semanas;const tf=sems.reduce((s,j)=>s+SEMANAS[j].tf[pi],0);const ms=sems.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem[pi],0);return{tf,ms};}
+function makeRows(idx){const mt=METAS[SEMANAS[idx].m];return PRODS.map((p,i)=>{const msem=mt.msem[i],tf=SEMANAS[idx].tf[i],pct=msem>0?tf/msem*100:0;return{p,c:CURVAS[i],mm:mt.mm[i],mdia:mt.mdia[i],msem,ms:MSOB[i],tf,pct,falt:Math.max(0,msem-tf),pflt:msem>0?(tf-msem)/msem*100:0,mcr:msem*1.05};});}
+
+function mudarView(v,btn){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));document.getElementById('view-'+v).classList.add('on');document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.getElementById('semSel').style.display=v==='semanal'?'block':'none';document.getElementById('wbadge').style.display=v==='semanal'?'block':'none';if(v==='mensal')renderMensal();if(v==='trimestral')renderTrimestral();if(v==='anual')renderAnual();if(v==='analise')renderAnalise();}
 function trocar(v){si=parseInt(v);document.getElementById('wbadge').textContent='Semana '+SEMANAS[si].l;renderSemanal();}
+
 function renderSemanal(){
 const r=makeRows(si);
 const tf=r.reduce((s,x)=>s+x.tf,0),ts=r.reduce((s,x)=>s+x.msem,0),pct=ts>0?tf/ts*100:0,fl=r.reduce((s,x)=>s+x.falt,0),ac=r.filter(x=>x.pct>=100).length,cr=r.filter(x=>x.pct<60).length;
@@ -225,34 +286,100 @@ const cv={A:{tf:0,ms:0,color:'#79b8ff'},B:{tf:0,ms:0,color:'#bc8cff'},C:{tf:0,ms
 r.forEach(x=>{if(cv[x.c]){cv[x.c].tf+=x.tf;cv[x.c].ms+=x.msem;}});
 document.getElementById('curvas').innerHTML=Object.entries(cv).map(([k,v])=>{const pct=v.ms>0?v.tf/v.ms*100:0;return'<div class="citem"><div class="cring" style="background:conic-gradient('+v.color+' '+pct*3.6+'deg,rgba(255,255,255,.06) '+pct*3.6+'deg)"><span style="color:'+v.color+'">'+pct.toFixed(0)+'%</span></div><div class="cinfo"><div class="clbl" style="color:'+v.color+'">Curva '+k+'</div><div class="csub">'+fmt(v.tf)+' / '+fmt(v.ms)+' un.</div></div><div class="cpct" style="color:'+clr(pct)+'">'+pct.toFixed(1)+'%</div></div>';}).join('');
 renderTabela(r);renderComp();}
-function renderTabela(r){
-const vis=r.filter(x=>fi==='all'?true:fi==='crit'?x.pct<60:x.c===fi);
-document.getElementById('tb').innerHTML=vis.map(x=>'<tr><td>'+x.p+'</td><td><span class="chip c'+x.c.toLowerCase()+'">'+x.c+'</span></td><td>'+fmt(x.mm)+'</td><td>'+fmt(x.mdia)+'</td><td>'+fmt(x.msem)+'</td><td>'+fmt(x.ms)+'</td><td>'+fmt(x.mcr)+'</td><td>'+fmt(x.tf)+'</td><td><div class="pc"><div class="mb"><div class="mf" style="width:'+Math.min(x.pct/2,100)+'%;background:'+clr(x.pct)+'"></div></div><span class="'+clrC(x.pct)+'">'+x.pct.toFixed(2)+'%</span></div></td><td class="'+(x.falt===0?'cg':'cr')+'">'+fmt(x.falt)+'</td><td class="'+(x.pflt>=0?'cg':'cr')+'">'+fmtP(x.pflt)+'</td></tr>').join('');
-const tf=r.reduce((s,x)=>s+x.tf,0),ts=r.reduce((s,x)=>s+x.msem,0),fl=r.reduce((s,x)=>s+x.falt,0),pct=ts>0?tf/ts*100:0,pflt=ts>0?(tf-ts)/ts*100:0;
-document.getElementById('tf').innerHTML='<tr><td>TOTAL GERAL</td><td></td><td>'+fmt(r.reduce((s,x)=>s+x.mm,0))+'</td><td>'+fmt(r.reduce((s,x)=>s+x.mdia,0))+'</td><td>'+fmt(ts)+'</td><td>'+fmt(r.reduce((s,x)=>s+x.ms,0))+'</td><td>'+fmt(r.reduce((s,x)=>s+x.mcr,0))+'</td><td>'+fmt(tf)+'</td><td style="color:'+clr(pct)+'">'+pct.toFixed(2)+'%</td><td style="color:'+(fl===0?'#3fb950':'#f85149')+'">'+fmt(fl)+'</td><td style="color:'+(pflt>=0?'#3fb950':'#f85149')+'">'+fmtP(pflt)+'</td></tr>';}
-function renderComp(){
-const cs=['#2f81f7','#3fb950','#d29922','#bc8cff','#ff7b72','#38bdf8','#f472b6','#fb923c','#a3e635','#e879f9','#67e8f9','#fbbf24','#c084fc','#f87171','#34d399','#60a5fa'];
-document.getElementById('comp').innerHTML=PRODS.map(p=>{const i=PRODS.indexOf(p);return'<div class="ci"><div class="cp">'+p+'</div>'+SEMANAS.map((s,j)=>{const tf=s.tf[i],ms=METAS[s.m].msem[i],pct=ms>0?tf/ms*100:0;return'<div class="cr2"><div class="cwk">'+s.l+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(pct/2,100)+'%;background:'+cs[j%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div>';}).join('')+'</div>';}).join('');}
+
+function renderTabela(r){const vis=r.filter(x=>fi==='all'?true:fi==='crit'?x.pct<60:x.c===fi);document.getElementById('tb').innerHTML=vis.map(x=>'<tr><td>'+x.p+'</td><td><span class="chip c'+x.c.toLowerCase()+'">'+x.c+'</span></td><td>'+fmt(x.mm)+'</td><td>'+fmt(x.mdia)+'</td><td>'+fmt(x.msem)+'</td><td>'+fmt(x.ms)+'</td><td>'+fmt(x.mcr)+'</td><td>'+fmt(x.tf)+'</td><td><div class="pc"><div class="mb"><div class="mf" style="width:'+Math.min(x.pct/2,100)+'%;background:'+clr(x.pct)+'"></div></div><span class="'+clrC(x.pct)+'">'+x.pct.toFixed(2)+'%</span></div></td><td class="'+(x.falt===0?'cg':'cr')+'">'+fmt(x.falt)+'</td><td class="'+(x.pflt>=0?'cg':'cr')+'">'+fmtP(x.pflt)+'</td></tr>').join('');const tf=r.reduce((s,x)=>s+x.tf,0),ts=r.reduce((s,x)=>s+x.msem,0),fl=r.reduce((s,x)=>s+x.falt,0),pct=ts>0?tf/ts*100:0,pflt=ts>0?(tf-ts)/ts*100:0;document.getElementById('tf').innerHTML='<tr><td>TOTAL GERAL</td><td></td><td>'+fmt(r.reduce((s,x)=>s+x.mm,0))+'</td><td>'+fmt(r.reduce((s,x)=>s+x.mdia,0))+'</td><td>'+fmt(ts)+'</td><td>'+fmt(r.reduce((s,x)=>s+x.ms,0))+'</td><td>'+fmt(r.reduce((s,x)=>s+x.mcr,0))+'</td><td>'+fmt(tf)+'</td><td style="color:'+clr(pct)+'">'+pct.toFixed(2)+'%</td><td style="color:'+(fl===0?'#3fb950':'#f85149')+'">'+fmt(fl)+'</td><td style="color:'+(pflt>=0?'#3fb950':'#f85149')+'">'+fmtP(pflt)+'</td></tr>';}
+function renderComp(){const cs=['#2f81f7','#3fb950','#d29922','#bc8cff','#ff7b72','#38bdf8','#f472b6','#fb923c','#a3e635','#e879f9','#67e8f9','#fbbf24','#c084fc','#f87171','#34d399','#60a5fa'];document.getElementById('comp').innerHTML=PRODS.map(p=>{const i=PRODS.indexOf(p);return'<div class="ci"><div class="cp">'+p+'</div>'+SEMANAS.map((s,j)=>{const tf=s.tf[i],ms=METAS[s.m].msem[i],pct=ms>0?tf/ms*100:0;return'<div class="cr2"><div class="cwk">'+s.l+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(pct/2,100)+'%;background:'+cs[j%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div>';}).join('')+'</div>';}).join('');}
 function filt(f,btn){fi=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderTabela(makeRows(si));}
+
 function renderMensal(){
 const mKeys=Object.keys(MESES);
 document.getElementById('mesSel').innerHTML=mKeys.map(k=>'<button class="mes-btn'+(k===mesAtual?' on':'')+'" onclick="selecionarMes(\''+k+'\',this)">'+MESES[k].nome+'</button>').join('');
-const m=MESES[mesAtual];
-const totTf=m.semanas.reduce((s,j)=>s+SEMANAS[j].tf.reduce((a,b)=>a+b,0),0);
-const totMs=m.semanas.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem.reduce((a,b)=>a+b,0),0);
-const pctM=totMs>0?totTf/totMs*100:0;
-document.getElementById('mgrid').innerHTML='<div class="mcard ativo"><div class="mnome">'+m.nome+'</div><div class="mtotal">'+fmt(totTf)+'</div><div class="mpct" style="color:'+clr(pctM)+'">'+pctM.toFixed(1)+'% atingido</div><div class="mbar"><div class="mbar-f" style="width:'+Math.min(pctM/2,100)+'%"></div></div><div class="msems">'+m.semanas.length+' semanas</div></div>';
+const m=MESES[mesAtual];const totTf=m.semanas.reduce((s,j)=>s+SEMANAS[j].tf.reduce((a,b)=>a+b,0),0);const totMs=m.semanas.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem.reduce((a,b)=>a+b,0),0);const pctM=totMs>0?totTf/totMs*100:0;
+document.getElementById('mgrid').innerHTML='<div class="mcard ativo"><div class="mnome">'+MESES[mesAtual].nome+'</div><div class="mtotal">'+fmt(totTf)+'</div><div class="mpct" style="color:'+clr(pctM)+'">'+pctM.toFixed(1)+'% atingido</div><div class="mbar"><div class="mbar-f" style="width:'+Math.min(pctM/2,100)+'%"></div></div><div class="msems">'+m.semanas.length+' semanas</div></div>';
 if(chartMes)chartMes.destroy();
-const ctx=document.getElementById('chartMes').getContext('2d');
-const grad=ctx.createLinearGradient(0,0,0,220);grad.addColorStop(0,'rgba(47,129,247,.4)');grad.addColorStop(1,'rgba(47,129,247,.05)');
-const allMeses=mKeys.map(k=>MESES[k]);
-chartMes=new Chart(ctx,{type:'bar',data:{labels:allMeses.map(m=>m.nome),datasets:[
-{label:'Total Produzido',data:allMeses.map(m=>m.semanas.reduce((s,j)=>s+SEMANAS[j].tf.reduce((a,b)=>a+b,0),0)),backgroundColor:grad,borderColor:'#2f81f7',borderWidth:2,borderRadius:8},
-{label:'Meta',data:allMeses.map(m=>m.semanas.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem.reduce((a,b)=>a+b,0),0)),type:'line',borderColor:'rgba(63,185,80,.7)',borderWidth:2,borderDash:[8,4],pointRadius:5,pointBackgroundColor:'#3fb950',fill:false,tension:.3}
-]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#7d8590',font:{family:'Figtree',size:11},boxWidth:12}}},scales:{y:{ticks:{color:'#7d8590',font:{family:'JetBrains Mono',size:10},callback:function(v){return fmt(v);}},grid:{color:'rgba(48,54,61,.5)'}},x:{ticks:{color:'#7d8590',font:{family:'Figtree',size:11}},grid:{display:false}}}}});
+const ctx=document.getElementById('chartMes').getContext('2d');const grad=ctx.createLinearGradient(0,0,0,220);grad.addColorStop(0,'rgba(47,129,247,.4)');grad.addColorStop(1,'rgba(47,129,247,.05)');
+chartMes=new Chart(ctx,{type:'bar',data:{labels:mKeys.map(k=>MESES[k].nome),datasets:[{label:'Total Produzido',data:mKeys.map(k=>MESES[k].semanas.reduce((s,j)=>s+SEMANAS[j].tf.reduce((a,b)=>a+b,0),0)),backgroundColor:grad,borderColor:'#2f81f7',borderWidth:2,borderRadius:8},{label:'Meta',data:mKeys.map(k=>MESES[k].semanas.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem.reduce((a,b)=>a+b,0),0)),type:'line',borderColor:'rgba(63,185,80,.7)',borderWidth:2,borderDash:[8,4],pointRadius:5,pointBackgroundColor:'#3fb950',fill:false,tension:.3}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#7d8590',font:{family:'Figtree',size:11},boxWidth:12}}},scales:{y:{ticks:{color:'#7d8590',font:{family:'JetBrains Mono',size:10},callback:function(v){return fmt(v);}},grid:{color:'rgba(48,54,61,.5)'}},x:{ticks:{color:'#7d8590',font:{family:'Figtree',size:11}},grid:{display:false}}}}});
 const cs=['#2f81f7','#3fb950','#d29922','#bc8cff'];
-document.getElementById('compMes').innerHTML=PRODS.map(p=>{const i=PRODS.indexOf(p);return'<div class="ci"><div class="cp">'+p+'</div>'+mKeys.map((k,mi)=>{const m=MESES[k];const tf=m.semanas.reduce((s,j)=>s+SEMANAS[j].tf[i],0);const ms=m.semanas.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem[i],0);const pct=ms>0?tf/ms*100:0;return'<div class="cr2"><div class="cwk">'+m.nome.split(' ')[0]+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(pct/2,100)+'%;background:'+cs[mi%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div>';}).join('')+'</div>';}).join('');}
+document.getElementById('compMes').innerHTML=PRODS.map(p=>{const i=PRODS.indexOf(p);return'<div class="ci"><div class="cp">'+p+'</div>'+mKeys.map((k,mi)=>{const m=MESES[k];const tf=m.semanas.reduce((s,j)=>s+SEMANAS[j].tf[i],0);const ms=m.semanas.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem[i],0);const pct=ms>0?tf/ms*100:0;return'<div class="cr2"><div class="cwk">'+m.nome.substring(0,3)+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(pct/2,100)+'%;background:'+cs[mi%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div>';}).join('')+'</div>';}).join('');}
 function selecionarMes(k,btn){mesAtual=k;document.querySelectorAll('.mes-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderMensal();}
+
+function renderTrimestral(){
+const mKeys=Object.keys(MESES);const totais=mKeys.map(k=>getMesTotais(k));const totalTf=totais.reduce((s,x)=>s+x.tf,0);const totalMs=totais.reduce((s,x)=>s+x.ms,0);const pctTotal=totalMs>0?totalTf/totalMs*100:0;
+document.getElementById('kpiTri').innerHTML=[{cls:'bl',l:'Total Acumulado',v:fmt(totalTf),s:'Jan a Abr'},{cls:pctTotal>=100?'gr':pctTotal>=70?'am':'rd',l:'% Atingido',v:pctTotal.toFixed(1)+'%',s:'vs metas'},{cls:'bl',l:'Meta Acumulada',v:fmt(totalMs),s:'soma das metas'},{cls:'gr',l:'Meses',v:mKeys.length,s:'com dados'},{cls:'pu',l:'Melhor Mes',v:MESES[mKeys.reduce((a,b)=>getMesTotais(a).tf>getMesTotais(b).tf?a:b)].nome,s:'maior producao'},{cls:'am',l:'Projecao Anual',v:fmt(totalTf/mKeys.length*12),s:'baseado na media'}].map(k=>'<div class="kpi '+k.cls+'"><div class="kpi-l">'+k.l+'</div><div class="kpi-v">'+k.v+'</div><div class="kpi-s">'+k.s+'</div></div>').join('');
+if(chartTri)chartTri.destroy();
+const ctx=document.getElementById('chartTri').getContext('2d');const colors=['#2f81f7','#3fb950','#d29922','#bc8cff'];
+chartTri=new Chart(ctx,{type:'bar',data:{labels:mKeys.map(k=>MESES[k].nome),datasets:[{label:'Total Produzido',data:totais.map(x=>x.tf),backgroundColor:colors,borderWidth:0,borderRadius:8},{label:'Meta',data:totais.map(x=>x.ms),type:'line',borderColor:'rgba(63,185,80,.7)',borderWidth:2,borderDash:[8,4],pointRadius:5,pointBackgroundColor:'#3fb950',fill:false,tension:.3}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#7d8590',font:{family:'Figtree',size:11},boxWidth:12}}},scales:{y:{ticks:{color:'#7d8590',font:{family:'JetBrains Mono',size:10},callback:function(v){return fmt(v);}},grid:{color:'rgba(48,54,61,.5)'}},x:{ticks:{color:'#7d8590',font:{family:'Figtree',size:11}},grid:{display:false}}}}});
+document.getElementById('tbTri').innerHTML=PRODS.map((p,i)=>{const vals=mKeys.map(k=>getMesProduto(k,i));const totalTf=vals.reduce((s,x)=>s+x.tf,0);const totalMs=vals.reduce((s,x)=>s+x.ms,0);const pct=totalMs>0?totalTf/totalMs*100:0;return'<tr><td>'+p+'</td><td><span class="chip c'+CURVAS[i].toLowerCase()+'">'+CURVAS[i]+'</span></td>'+vals.map(x=>'<td>'+fmt(x.tf)+'</td>').join('')+'<td style="color:var(--accent);font-weight:700">'+fmt(totalTf)+'</td><td>'+fmt(totalMs)+'</td><td style="color:'+clr(pct)+'">'+pct.toFixed(1)+'%</td></tr>';}).join('');
+const totaisProd=PRODS.map((_,i)=>{const vals=mKeys.map(k=>getMesProduto(k,i));return{tf:vals.reduce((s,x)=>s+x.tf,0),ms:vals.reduce((s,x)=>s+x.ms,0)};});
+const gtf=totaisProd.reduce((s,x)=>s+x.tf,0),gms=totaisProd.reduce((s,x)=>s+x.ms,0),gpct=gms>0?gtf/gms*100:0;
+document.getElementById('tfTri').innerHTML='<tr><td>TOTAL GERAL</td><td></td>'+mKeys.map(k=>'<td style="color:var(--accent)">'+fmt(getMesTotais(k).tf)+'</td>').join('')+'<td style="color:var(--accent);font-weight:700">'+fmt(gtf)+'</td><td>'+fmt(gms)+'</td><td style="color:'+clr(gpct)+'">'+gpct.toFixed(1)+'%</td></tr>';}
+
+function renderAnual(){
+const mKeys=Object.keys(MESES);const dadosMeses=TODOS_MESES.map(mk=>({chave:mk,tem:!!MESES[mk],dados:MESES[mk]?getMesTotais(mk):{tf:0,ms:0}}));const totalTf=dadosMeses.filter(x=>x.tem).reduce((s,x)=>s+x.dados.tf,0);const totalMs=dadosMeses.filter(x=>x.tem).reduce((s,x)=>s+x.dados.ms,0);const pctAnual=totalMs>0?totalTf/totalMs*100:0;const media=totalTf/mKeys.length;
+document.getElementById('kpiAnual').innerHTML=[{cls:'bl',l:'Total 2026',v:fmt(totalTf),s:'acumulado'},{cls:pctAnual>=100?'gr':pctAnual>=70?'am':'rd',l:'% Atingido',v:pctAnual.toFixed(1)+'%',s:'vs metas'},{cls:'bl',l:'Media Mensal',v:fmt(Math.round(media)),s:'media por mes'},{cls:'pu',l:'Projecao Anual',v:fmt(Math.round(media*12)),s:'se manter media'},{cls:'gr',l:'Meses',v:mKeys.length+'/12',s:'com dados'},{cls:'am',l:'Faltam',v:(12-mKeys.length)+' meses',s:'para fechar'}].map(k=>'<div class="kpi '+k.cls+'"><div class="kpi-l">'+k.l+'</div><div class="kpi-v">'+k.v+'</div><div class="kpi-s">'+k.s+'</div></div>').join('');
+let acum=0;
+document.getElementById('anualGrid').innerHTML=dadosMeses.map((x,idx)=>{if(x.tem)acum+=x.dados.tf;const pct=x.dados.ms>0?x.dados.tf/x.dados.ms*100:0;return'<div class="anual-card'+(x.tem?'':' fut')+'"><div class="anual-mes">'+NOMES_MESES[idx]+'</div><div class="anual-val">'+(x.tem?fmt(x.dados.tf):'-')+'</div><div class="anual-pct" style="color:'+(x.tem?clr(pct):'var(--muted)')+'">'+( x.tem?pct.toFixed(1)+'%':'Aguardando')+'</div><div class="anual-bar"><div class="anual-bar-f" style="width:'+(x.tem?Math.min(pct/2,100):0)+'%"></div></div>'+(x.tem?'<div class="acum-badge">Acum: '+fmt(acum)+'</div>':'')+'</div>';}).join('');
+if(chartAnual)chartAnual.destroy();
+const ctx=document.getElementById('chartAnual').getContext('2d');const grad=ctx.createLinearGradient(0,0,0,240);grad.addColorStop(0,'rgba(47,129,247,.5)');grad.addColorStop(1,'rgba(47,129,247,.05)');
+let acumData=[];let ac2=0;dadosMeses.forEach(x=>{if(x.tem){ac2+=x.dados.tf;acumData.push(ac2);}else acumData.push(null);});
+chartAnual=new Chart(ctx,{type:'bar',data:{labels:NOMES_MESES,datasets:[{label:'Produzido no Mes',data:dadosMeses.map(x=>x.tem?x.dados.tf:null),backgroundColor:dadosMeses.map(x=>x.tem?grad:'rgba(255,255,255,.05)'),borderWidth:0,borderRadius:8},{label:'Acumulado',data:acumData,type:'line',borderColor:'#bc8cff',borderWidth:2,pointRadius:4,pointBackgroundColor:'#bc8cff',fill:false,tension:.4,yAxisID:'y2'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#7d8590',font:{family:'Figtree',size:11},boxWidth:12}}},scales:{y:{ticks:{color:'#7d8590',font:{family:'JetBrains Mono',size:10},callback:function(v){return fmt(v);}},grid:{color:'rgba(48,54,61,.5)'},position:'left'},y2:{ticks:{color:'#bc8cff',font:{family:'JetBrains Mono',size:10},callback:function(v){return fmt(v);}},grid:{display:false},position:'right'},x:{ticks:{color:'#7d8590',font:{family:'Figtree',size:10}},grid:{display:false}}}}});
+const cs=['#2f81f7','#3fb950','#d29922','#bc8cff'];
+document.getElementById('compAnual').innerHTML=PRODS.map((p,i)=>{const totalTf=mKeys.reduce((s,k)=>s+getMesProduto(k,i).tf,0);const totalMs=mKeys.reduce((s,k)=>s+getMesProduto(k,i).ms,0);const pct=totalMs>0?totalTf/totalMs*100:0;return'<div class="ci"><div class="cp">'+p+'</div>'+mKeys.map((k,mi)=>{const d=getMesProduto(k,i);const p2=d.ms>0?d.tf/d.ms*100:0;return'<div class="cr2"><div class="cwk">'+MESES[k].nome.substring(0,3)+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(p2/2,100)+'%;background:'+cs[mi%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(p2)+'">'+p2.toFixed(0)+'%</div></div>';}).join('')+'<div class="cr2" style="margin-top:6px;border-top:1px solid var(--border);padding-top:6px"><div class="cwk" style="color:var(--accent)">TOTAL</div><div class="ctr"><div class="cfi" style="width:'+Math.min(pct/2,100)+'%;background:var(--accent)"></div></div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div></div>';}).join('');}
+
+function renderAnalise(){
+const mKeys=Object.keys(MESES);
+const prodData=PRODS.map((p,i)=>{
+const porMes=mKeys.map(k=>getMesProduto(k,i));
+const totalTf=porMes.reduce((s,x)=>s+x.tf,0);
+const totalMs=porMes.reduce((s,x)=>s+x.ms,0);
+const pctMedio=totalMs>0?totalTf/totalMs*100:0;
+const pcts=porMes.map(x=>x.ms>0?x.tf/x.ms*100:0);
+const melhorIdx=pcts.indexOf(Math.max(...pcts));
+const piorIdx=pcts.indexOf(Math.min(...pcts));
+const tend=pcts.length>=2?pcts[pcts.length-1]-pcts[pcts.length-2]:0;
+return{p,c:CURVAS[i],totalTf,totalMs,pctMedio,pcts,melhor:MESES[mKeys[melhorIdx]].nome,pior:MESES[mKeys[piorIdx]].nome,tend};});
+
+const totalAcum=prodData.reduce((s,x)=>s+x.totalTf,0);
+const metaAcum=prodData.reduce((s,x)=>s+x.totalMs,0);
+const pctGeral=metaAcum>0?totalAcum/metaAcum*100:0;
+const melhorProd=prodData.reduce((a,b)=>a.pctMedio>b.pctMedio?a:b);
+const piorProd=prodData.reduce((a,b)=>a.pctMedio<b.pctMedio?a:b);
+const emAlta=prodData.filter(x=>x.tend>5).length;
+const emBaixa=prodData.filter(x=>x.tend<-5).length;
+
+document.getElementById('kpiAna').innerHTML=[
+{cls:'bl',l:'Total Acumulado',v:fmt(totalAcum),s:'Jan a Abr'},
+{cls:pctGeral>=100?'gr':pctGeral>=70?'am':'rd',l:'% Medio Geral',v:pctGeral.toFixed(1)+'%',s:'performance geral'},
+{cls:'gr',l:'Melhor Produto',v:melhorProd.p.split(' ')[0],s:melhorProd.pctMedio.toFixed(0)+'% de media'},
+{cls:'rd',l:'Produto Critico',v:piorProd.p.split(' ')[0],s:piorProd.pctMedio.toFixed(0)+'% de media'},
+{cls:'gr',l:'Em Alta',v:emAlta+' produtos',s:'melhorando vs mes ant.'},
+{cls:'rd',l:'Em Baixa',v:emBaixa+' produtos',s:'piorando vs mes ant.'}
+].map(k=>'<div class="kpi '+k.cls+'"><div class="kpi-l">'+k.l+'</div><div class="kpi-v">'+k.v+'</div><div class="kpi-s">'+k.s+'</div></div>').join('');
+
+const insightsList=[
+{tipo:pctGeral>=80?'good':'warn',icon:pctGeral>=80?'✅':'⚠️',title:'Performance Geral',text:'A producao acumulada de Janeiro a Abril atingiu '+pctGeral.toFixed(1)+'% da meta. '+(pctGeral>=80?'Resultado positivo para o periodo.':'Atencao: abaixo de 80% da meta acumulada.'),val:fmt(totalAcum)+' un.'},
+{tipo:melhorProd.pctMedio>=100?'good':'info',icon:'🏆',title:'Destaque: '+melhorProd.p,text:'Produto com melhor performance media no periodo com '+melhorProd.pctMedio.toFixed(1)+'% de atingimento. Melhor mes: '+melhorProd.melhor+'.',val:fmt(melhorProd.totalTf)+' un. produzidas'},
+{tipo:'bad',icon:'🚨',title:'Critico: '+piorProd.p,text:'Produto com menor performance no periodo com apenas '+piorProd.pctMedio.toFixed(1)+'% de atingimento. Pior mes: '+piorProd.pior+'. Requer atencao imediata.',val:fmt(piorProd.totalTf)+' un. produzidas'},
+{tipo:emAlta>emBaixa?'good':'warn',icon:'📈',title:'Tendencia do Periodo',text:emAlta+' produtos em alta e '+emBaixa+' em baixa comparando com o mes anterior. '+(emAlta>emBaixa?'Tendencia positiva geral.':'Atencao com os produtos em queda.'),val:emAlta+' em alta / '+emBaixa+' em baixa'}
+];
+document.getElementById('insights').innerHTML=insightsList.map(x=>'<div class="insight '+x.tipo+'"><div class="insight-icon">'+x.icon+'</div><div class="insight-title">'+x.title+'</div><div class="insight-text">'+x.text+'</div><div class="insight-val" style="color:'+(x.tipo==='good'?'var(--green)':x.tipo==='bad'?'var(--red)':x.tipo==='warn'?'var(--amber)':'var(--accent)')+'">'+x.val+'</div></div>').join('');
+
+const sorted=[...prodData].sort((a,b)=>b.totalTf-a.totalTf);
+const goldColors=['#f59e0b','#94a3b8','#cd7c4b','#7d8590','#7d8590'];
+document.getElementById('top5').innerHTML=sorted.slice(0,5).map((x,i)=>'<div class="rank-item"><div class="rank-pos" style="background:'+goldColors[i]+'22;color:'+goldColors[i]+'">'+(i+1)+'</div><div class="rank-info"><div class="rank-nome">'+x.p+'</div><div class="rank-val">'+fmt(x.totalTf)+' unidades produzidas</div></div><div class="rank-pct" style="color:'+clr(x.pctMedio)+'">'+x.pctMedio.toFixed(0)+'%</div></div>').join('');
+const sortedPct=[...prodData].sort((a,b)=>a.pctMedio-b.pctMedio);
+document.getElementById('bot5').innerHTML=sortedPct.slice(0,5).map((x,i)=>'<div class="rank-item"><div class="rank-pos" style="background:rgba(248,81,73,.15);color:#f85149">'+(i+1)+'</div><div class="rank-info"><div class="rank-nome">'+x.p+'</div><div class="rank-val">'+x.pctMedio.toFixed(1)+'% de atingimento medio</div></div><div class="rank-pct" style="color:'+clr(x.pctMedio)+'">'+fmt(x.totalTf)+'</div></div>').join('');
+
+if(chartAna)chartAna.destroy();
+const ctx=document.getElementById('chartAna').getContext('2d');
+const colors=['#2f81f7','#3fb950','#d29922','#bc8cff','#f85149','#38bdf8','#f472b6','#fb923c'];
+chartAna=new Chart(ctx,{type:'line',data:{labels:mKeys.map(k=>MESES[k].nome),datasets:prodData.map((pd,i)=>({label:pd.p,data:pd.pcts,borderColor:colors[i%colors.length],borderWidth:2,pointRadius:3,pointBackgroundColor:colors[i%colors.length],fill:false,tension:.4}))},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#7d8590',font:{family:'Figtree',size:9},boxWidth:10}}},scales:{y:{min:0,ticks:{color:'#7d8590',font:{family:'JetBrains Mono',size:10},callback:function(v){return v+'%';}},grid:{color:'rgba(48,54,61,.5)'}},x:{ticks:{color:'#7d8590',font:{family:'Figtree',size:11}},grid:{display:false}}}}});
+
+document.getElementById('tbAna').innerHTML=[...prodData].sort((a,b)=>b.totalTf-a.totalTf).map(x=>{
+const tendIcon=x.tend>5?'<span class="tend-up">▲ Alta</span>':x.tend<-5?'<span class="tend-dn">▼ Baixa</span>':'<span class="tend-eq">→ Estavel</span>';
+const status=x.pctMedio>=100?'<span class="cg">Excelente</span>':x.pctMedio>=80?'<span class="cy">Bom</span>':x.pctMedio>=60?'<span class="cy">Regular</span>':'<span class="cr">Critico</span>';
+return'<tr><td>'+x.p+'</td><td><span class="chip c'+x.c.toLowerCase()+'">'+x.c+'</span></td><td style="color:var(--accent);font-weight:700">'+fmt(x.totalTf)+'</td><td style="color:'+clr(x.pctMedio)+'">'+x.pctMedio.toFixed(1)+'%</td><td class="cg">'+x.melhor+'</td><td class="cr">'+x.pior+'</td><td>'+tendIcon+'</td><td>'+status+'</td></tr>';}).join('');}
+
 renderSemanal();
 </script>
 </body>

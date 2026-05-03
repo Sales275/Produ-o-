@@ -205,11 +205,7 @@ footer{text-align:center;padding:16px;font-size:.63rem;color:var(--muted);border
 <div class="kpi-row" id="kpiAnual"></div>
 <div class="anual-grid" id="anualGrid"></div>
 <div class="card"><div class="ct">Acumulado Anual</div><canvas id="chartAnual"></canvas></div>
-<div class="tcard"><div class="ttop"><div class="ttl">Total por Produto 2026</div></div>
-<div class="tw"><table>
-<thead><tr><th>Produto</th><th>Curva</th><th>Janeiro</th><th>Fevereiro</th><th>Marco</th><th>Abril</th><th>Total Produzido</th><th>Meta Acumulada</th><th>% Atingido</th><th>Falta</th></tr></thead>
-<tbody id="tbAnual"></tbody><tfoot id="tfAnual"></tfoot>
-</table></div></div>
+<div class="card"><div class="ct">Total por Produto 2026</div><div class="cgrid" id="compAnual"></div></div>
 </div>
 <div class="view" id="view-analise">
 <div class="kpi-row" id="kpiAna"></div>
@@ -268,7 +264,6 @@ function makeRows(idx){const mt=METAS[SEMANAS[idx].m];return PRODS.map((p,i)=>{c
 function mudarView(v,btn){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));document.getElementById('view-'+v).classList.add('on');document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.getElementById('semSel').style.display=v==='semanal'?'block':'none';document.getElementById('wbadge').style.display=v==='semanal'?'block':'none';if(v==='mensal')rMensal();if(v==='trimestral')rTri();if(v==='anual')rAnual();if(v==='analise')rAna();}
 function trocar(v){si=parseInt(v);document.getElementById('wbadge').textContent='Semana '+SEMANAS[si].l;rSemanal();}
 function kpiHTML(arr){return arr.map(k=>'<div class="kpi '+k.c+'"><div class="kpi-l">'+k.l+'</div><div class="kpi-v">'+k.v+'</div><div class="kpi-s">'+k.s+'</div></div>').join('');}
-
 function rSemanal(){
 const r=makeRows(si);
 const tf=r.reduce((s,x)=>s+x.tf,0),ts=r.reduce((s,x)=>s+x.msem,0),pct=ts>0?tf/ts*100:0,fl=r.reduce((s,x)=>s+x.falt,0),ac=r.filter(x=>x.pct>=100).length,cr=r.filter(x=>x.pct<60).length;
@@ -278,19 +273,15 @@ const cv={A:{tf:0,ms:0,color:'#79b8ff'},B:{tf:0,ms:0,color:'#bc8cff'},C:{tf:0,ms
 r.forEach(x=>{if(cv[x.c]){cv[x.c].tf+=x.tf;cv[x.c].ms+=x.msem;}});
 document.getElementById('curvas').innerHTML=Object.entries(cv).map(([k,v])=>{const p=v.ms>0?v.tf/v.ms*100:0;return'<div class="citem"><div class="cring" style="background:conic-gradient('+v.color+' '+p*3.6+'deg,rgba(255,255,255,.06) '+p*3.6+'deg)"><span style="color:'+v.color+'">'+p.toFixed(0)+'%</span></div><div class="cinfo"><div class="clbl" style="color:'+v.color+'">Curva '+k+'</div><div class="csub">'+fmt(v.tf)+' / '+fmt(v.ms)+'</div></div><div class="cpct" style="color:'+clr(p)+'">'+p.toFixed(1)+'%</div></div>';}).join('');
 rTabela(r);rComp();}
-
 function rTabela(r){
 const vis=r.filter(x=>fi==='all'?true:fi==='crit'?x.pct<60:x.c===fi);
 document.getElementById('tb').innerHTML=vis.map(x=>'<tr><td>'+x.p+'</td><td><span class="chip c'+x.c.toLowerCase()+'">'+x.c+'</span></td><td>'+fmt(x.mm)+'</td><td>'+fmt(x.mdia)+'</td><td>'+fmt(x.msem)+'</td><td>'+fmt(x.ms)+'</td><td>'+fmt(x.mcr)+'</td><td>'+fmt(x.tf)+'</td><td><div class="pc"><div class="mb"><div class="mf" style="width:'+Math.min(x.pct/2,100)+'%;background:'+clr(x.pct)+'"></div></div><span class="'+clrC(x.pct)+'">'+x.pct.toFixed(2)+'%</span></div></td><td class="'+(x.falt===0?'cg':'cr')+'">'+fmt(x.falt)+'</td><td class="'+(x.pflt>=0?'cg':'cr')+'">'+fmtP(x.pflt)+'</td></tr>').join('');
 const tf=r.reduce((s,x)=>s+x.tf,0),ts=r.reduce((s,x)=>s+x.msem,0),fl=r.reduce((s,x)=>s+x.falt,0),pct=ts>0?tf/ts*100:0,pflt=ts>0?(tf-ts)/ts*100:0;
 document.getElementById('tf').innerHTML='<tr><td>TOTAL GERAL</td><td></td><td>'+fmt(r.reduce((s,x)=>s+x.mm,0))+'</td><td>'+fmt(r.reduce((s,x)=>s+x.mdia,0))+'</td><td>'+fmt(ts)+'</td><td>'+fmt(r.reduce((s,x)=>s+x.ms,0))+'</td><td>'+fmt(r.reduce((s,x)=>s+x.mcr,0))+'</td><td>'+fmt(tf)+'</td><td style="color:'+clr(pct)+'">'+pct.toFixed(2)+'%</td><td style="color:'+(fl===0?'#3fb950':'#f85149')+'">'+fmt(fl)+'</td><td style="color:'+(pflt>=0?'#3fb950':'#f85149')+'">'+fmtP(pflt)+'</td></tr>';}
-
 function rComp(){
 const cs=['#2f81f7','#3fb950','#d29922','#bc8cff','#ff7b72','#38bdf8','#f472b6','#fb923c','#a3e635','#e879f9','#67e8f9','#fbbf24','#c084fc','#f87171','#34d399','#60a5fa'];
 document.getElementById('comp').innerHTML=PRODS.map(p=>{const i=PRODS.indexOf(p);return'<div class="ci"><div class="cp">'+p+'</div>'+SEMANAS.map((s,j)=>{const tf=s.tf[i],ms=METAS[s.m].msem[i],pct=ms>0?tf/ms*100:0;return'<div class="cr2"><div class="cwk">'+s.l+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(pct/2,100)+'%;background:'+cs[j%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div>';}).join('')+'</div>';}).join('');}
-
 function filt(f,btn){fi=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');rTabela(makeRows(si));}
-
 function rMensal(){
 const mk=mKeys();
 document.getElementById('mesSel').innerHTML=mk.map(k=>'<button class="mes-btn'+(k===mesAtual?' on':'')+'" onclick="selMes(\''+k+'\',this)">'+MESES[k].nome+'</button>').join('');
@@ -301,9 +292,7 @@ const ctx=document.getElementById('chartMes').getContext('2d');const g=ctx.creat
 chM=new Chart(ctx,{type:'bar',data:{labels:mk.map(k=>MESES[k].nome),datasets:[{label:'Produzido',data:mk.map(k=>MESES[k].semanas.reduce((s,j)=>s+SEMANAS[j].tf.reduce((a,b)=>a+b,0),0)),backgroundColor:g,borderColor:'#2f81f7',borderWidth:2,borderRadius:8},{label:'Meta',data:mk.map(k=>MESES[k].semanas.reduce((s,j)=>s+METAS[SEMANAS[j].m].msem.reduce((a,b)=>a+b,0),0)),type:'line',borderColor:'rgba(63,185,80,.7)',borderWidth:2,borderDash:[8,4],pointRadius:5,pointBackgroundColor:'#3fb950',fill:false,tension:.3}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#7d8590',font:{family:'Figtree',size:11},boxWidth:12}}},scales:{y:{ticks:{color:'#7d8590',font:{family:'JetBrains Mono',size:10},callback:v=>fmt(v)},grid:{color:'rgba(48,54,61,.5)'}},x:{ticks:{color:'#7d8590',font:{family:'Figtree',size:11}},grid:{display:false}}}}});
 const cs=['#2f81f7','#3fb950','#d29922','#bc8cff'];
 document.getElementById('compMes').innerHTML=PRODS.map(p=>{const i=PRODS.indexOf(p);return'<div class="ci"><div class="cp">'+p+'</div>'+mk.map((k,mi)=>{const d=gMP(k,i),pct=d.ms>0?d.tf/d.ms*100:0;return'<div class="cr2"><div class="cwk">'+MESES[k].nome.substring(0,3)+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(pct/2,100)+'%;background:'+cs[mi%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div>';}).join('')+'</div>';}).join('');}
-
 function selMes(k,btn){mesAtual=k;document.querySelectorAll('.mes-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');rMensal();}
-
 function rTri(){
 const mk=mKeys(),tots=mk.map(k=>gMT(k)),totTf=tots.reduce((s,x)=>s+x.tf,0),totMs=tots.reduce((s,x)=>s+x.ms,0),pct=totMs>0?totTf/totMs*100:0;
 document.getElementById('kpiTri').innerHTML=kpiHTML([{c:'bl',l:'Total Acumulado',v:fmt(totTf),s:'Jan a Abr'},{c:pct>=100?'gr':pct>=70?'am':'rd',l:'% Atingido',v:pct.toFixed(1)+'%',s:'vs metas'},{c:'bl',l:'Meta Acumulada',v:fmt(totMs),s:'soma metas'},{c:'gr',l:'Meses',v:mk.length,s:'com dados'},{c:'pu',l:'Melhor Mes',v:MESES[mk.reduce((a,b)=>gMT(a).tf>gMT(b).tf?a:b)].nome,s:'maior producao'},{c:'am',l:'Projecao Anual',v:fmt(totTf/mk.length*12),s:'baseado na media'}]);
@@ -313,7 +302,6 @@ chT=new Chart(ctx,{type:'bar',data:{labels:mk.map(k=>MESES[k].nome),datasets:[{l
 document.getElementById('tbTri').innerHTML=PRODS.map((p,i)=>{const vals=mk.map(k=>gMP(k,i)),totTf=vals.reduce((s,x)=>s+x.tf,0),totMs=vals.reduce((s,x)=>s+x.ms,0),pct=totMs>0?totTf/totMs*100:0;return'<tr><td>'+p+'</td><td><span class="chip c'+CURVAS[i].toLowerCase()+'">'+CURVAS[i]+'</span></td>'+vals.map(x=>'<td>'+fmt(x.tf)+'</td>').join('')+'<td style="color:var(--accent);font-weight:700">'+fmt(totTf)+'</td><td>'+fmt(totMs)+'</td><td style="color:'+clr(pct)+'">'+pct.toFixed(1)+'%</td></tr>';}).join('');
 const gtf=PRODS.reduce((s,_,i)=>s+mk.reduce((a,k)=>a+gMP(k,i).tf,0),0),gms=PRODS.reduce((s,_,i)=>s+mk.reduce((a,k)=>a+gMP(k,i).ms,0),0),gpct=gms>0?gtf/gms*100:0;
 document.getElementById('tfTri').innerHTML='<tr><td>TOTAL GERAL</td><td></td>'+mk.map(k=>'<td style="color:var(--accent)">'+fmt(gMT(k).tf)+'</td>').join('')+'<td style="color:var(--accent);font-weight:700">'+fmt(gtf)+'</td><td>'+fmt(gms)+'</td><td style="color:'+clr(gpct)+'">'+gpct.toFixed(1)+'%</td></tr>';}
-
 function rAnual(){
 const mk=mKeys(),dm=TODOS.map(k=>({k,tem:!!MESES[k],d:MESES[k]?gMT(k):{tf:0,ms:0}})),totTf=dm.filter(x=>x.tem).reduce((s,x)=>s+x.d.tf,0),totMs=dm.filter(x=>x.tem).reduce((s,x)=>s+x.d.ms,0),pct=totMs>0?totTf/totMs*100:0,media=totTf/mk.length;
 document.getElementById('kpiAnual').innerHTML=kpiHTML([{c:'bl',l:'Total 2026',v:fmt(totTf),s:'acumulado'},{c:pct>=100?'gr':pct>=70?'am':'rd',l:'% Atingido',v:pct.toFixed(1)+'%',s:'vs metas'},{c:'bl',l:'Media Mensal',v:fmt(Math.round(media)),s:'por mes'},{c:'pu',l:'Projecao Anual',v:fmt(Math.round(media*12)),s:'se manter media'},{c:'gr',l:'Meses',v:mk.length+'/12',s:'com dados'},{c:'am',l:'Faltam',v:(12-mk.length)+' meses',s:'para fechar'}]);
@@ -323,10 +311,8 @@ if(chA)chA.destroy();
 const ctx=document.getElementById('chartAnual').getContext('2d');const g=ctx.createLinearGradient(0,0,0,240);g.addColorStop(0,'rgba(47,129,247,.5)');g.addColorStop(1,'rgba(47,129,247,.05)');
 let acD=[],ac2=0;dm.forEach(x=>{if(x.tem){ac2+=x.d.tf;acD.push(ac2);}else acD.push(null);});
 chA=new Chart(ctx,{type:'bar',data:{labels:NOMES,datasets:[{label:'Produzido',data:dm.map(x=>x.tem?x.d.tf:null),backgroundColor:dm.map(x=>x.tem?g:'rgba(255,255,255,.05)'),borderWidth:0,borderRadius:8},{label:'Acumulado',data:acD,type:'line',borderColor:'#bc8cff',borderWidth:2,pointRadius:4,pointBackgroundColor:'#bc8cff',fill:false,tension:.4,yAxisID:'y2'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#7d8590',font:{family:'Figtree',size:11},boxWidth:12}}},scales:{y:{ticks:{color:'#7d8590',font:{family:'JetBrains Mono',size:10},callback:v=>fmt(v)},grid:{color:'rgba(48,54,61,.5)'},position:'left'},y2:{ticks:{color:'#bc8cff',font:{family:'JetBrains Mono',size:10},callback:v=>fmt(v)},grid:{display:false},position:'right'},x:{ticks:{color:'#7d8590',font:{family:'Figtree',size:10}},grid:{display:false}}}}});
-document.getElementById('tbAnual').innerHTML=PRODS.map((p,i)=>{const vals=mk.map(k=>gMP(k,i)),totTf=vals.reduce((s,x)=>s+x.tf,0),totMs=vals.reduce((s,x)=>s+x.ms,0),pct=totMs>0?totTf/totMs*100:0,falt=Math.max(0,totMs-totTf);return'<tr><td>'+p+'</td><td><span class="chip c'+CURVAS[i].toLowerCase()+'">'+CURVAS[i]+'</span></td>'+vals.map(x=>'<td>'+fmt(x.tf)+'</td>').join('')+'<td style="color:var(--accent);font-weight:800">'+fmt(totTf)+'</td><td>'+fmt(totMs)+'</td><td style="color:'+clr(pct)+';font-weight:800">'+pct.toFixed(1)+'%</td><td style="color:'+(falt===0?'#3fb950':'#f85149')+'">'+fmt(falt)+'</td></tr>';}).join('');
-const gtf=PRODS.reduce((s,_,i)=>s+mk.reduce((a,k)=>a+gMP(k,i).tf,0),0),gms=PRODS.reduce((s,_,i)=>s+mk.reduce((a,k)=>a+gMP(k,i).ms,0),0),gpct=gms>0?gtf/gms*100:0,gfalt=Math.max(0,gms-gtf);
-document.getElementById('tfAnual').innerHTML='<tr><td>TOTAL GERAL</td><td></td>'+mk.map(k=>'<td style="color:var(--accent)">'+fmt(gMT(k).tf)+'</td>').join('')+'<td style="color:var(--accent);font-weight:800">'+fmt(gtf)+'</td><td>'+fmt(gms)+'</td><td style="color:'+clr(gpct)+';font-weight:800">'+gpct.toFixed(1)+'%</td><td style="color:'+(gfalt===0?'#3fb950':'#f85149')+'">'+fmt(gfalt)+'</td></tr>';}
-
+const cs=['#2f81f7','#3fb950','#d29922','#bc8cff'];
+document.getElementById('compAnual').innerHTML=PRODS.map((p,i)=>{const totTf=mk.reduce((s,k)=>s+gMP(k,i).tf,0),totMs=mk.reduce((s,k)=>s+gMP(k,i).ms,0),pct=totMs>0?totTf/totMs*100:0;return'<div class="ci"><div class="cp">'+p+'</div>'+mk.map((k,mi)=>{const d=gMP(k,i),p2=d.ms>0?d.tf/d.ms*100:0;return'<div class="cr2"><div class="cwk">'+MESES[k].nome.substring(0,3)+'</div><div class="ctr"><div class="cfi" style="width:'+Math.min(p2/2,100)+'%;background:'+cs[mi%cs.length]+'"></div></div><div class="cpn" style="color:'+clr(p2)+'">'+p2.toFixed(0)+'%</div></div>';}).join('')+'<div class="cr2" style="margin-top:6px;border-top:1px solid var(--border);padding-top:6px"><div class="cwk" style="color:var(--accent)">TOTAL</div><div style="font-size:.68rem;font-family:JetBrains Mono,monospace;font-weight:700;color:var(--accent)">'+fmt(totTf)+'</div><div class="cpn" style="color:'+clr(pct)+'">'+pct.toFixed(0)+'%</div></div></div>';}).join('');}
 function rAna(){
 const mk=mKeys(),pd=PRODS.map((p,i)=>{const pm=mk.map(k=>gMP(k,i)),totTf=pm.reduce((s,x)=>s+x.tf,0),totMs=pm.reduce((s,x)=>s+x.ms,0),pctM=totMs>0?totTf/totMs*100:0,pcts=pm.map(x=>x.ms>0?x.tf/x.ms*100:0),mi=pcts.indexOf(Math.max(...pcts)),pi=pcts.indexOf(Math.min(...pcts)),tend=pcts.length>=2?pcts[pcts.length-1]-pcts[pcts.length-2]:0;return{p,c:CURVAS[i],totTf,totMs,pctM,pcts,melhor:MESES[mk[mi]].nome,pior:MESES[mk[pi]].nome,tend};});
 const totAc=pd.reduce((s,x)=>s+x.totTf,0),metAc=pd.reduce((s,x)=>s+x.totMs,0),pctG=metAc>0?totAc/metAc*100:0,melh=pd.reduce((a,b)=>a.pctM>b.pctM?a:b),pior=pd.reduce((a,b)=>a.pctM<b.pctM?a:b),alta=pd.filter(x=>x.tend>5).length,baixa=pd.filter(x=>x.tend<-5).length;
@@ -339,7 +325,6 @@ if(chAn)chAn.destroy();
 const ctx=document.getElementById('chartAna').getContext('2d');const cs=['#2f81f7','#3fb950','#d29922','#bc8cff','#f85149','#38bdf8','#f472b6','#fb923c'];
 chAn=new Chart(ctx,{type:'line',data:{labels:mk.map(k=>MESES[k].nome),datasets:pd.map((d,i)=>({label:d.p,data:d.pcts,borderColor:cs[i%cs.length],borderWidth:2,pointRadius:3,pointBackgroundColor:cs[i%cs.length],fill:false,tension:.4}))},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#7d8590',font:{family:'Figtree',size:9},boxWidth:10}}},scales:{y:{min:0,ticks:{color:'#7d8590',font:{family:'JetBrains Mono',size:10},callback:v=>v+'%'},grid:{color:'rgba(48,54,61,.5)'}},x:{ticks:{color:'#7d8590',font:{family:'Figtree',size:11}},grid:{display:false}}}}});
 document.getElementById('tbAna').innerHTML=[...pd].sort((a,b)=>b.totTf-a.totTf).map(x=>{const ti=x.tend>5?'<span class="tend-up">▲ Alta</span>':x.tend<-5?'<span class="tend-dn">▼ Baixa</span>':'<span class="tend-eq">→ Estavel</span>';const st=x.pctM>=100?'<span class="cg">Excelente</span>':x.pctM>=80?'<span class="cy">Bom</span>':x.pctM>=60?'<span class="cy">Regular</span>':'<span class="cr">Critico</span>';return'<tr><td>'+x.p+'</td><td><span class="chip c'+x.c.toLowerCase()+'">'+x.c+'</span></td><td style="color:var(--accent);font-weight:700">'+fmt(x.totTf)+'</td><td style="color:'+clr(x.pctM)+'">'+x.pctM.toFixed(1)+'%</td><td class="cg">'+x.melhor+'</td><td class="cr">'+x.pior+'</td><td>'+ti+'</td><td>'+st+'</td></tr>';}).join('');}
-
 rSemanal();
 </script>
 </body>
